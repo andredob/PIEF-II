@@ -16,8 +16,8 @@ public class Janela extends javax.swing.JFrame {
 
     File file;
     DefaultTableModel tableModel;
-    static List<Double> DadosList;
-
+    public static List<Double> DadosList;
+    
     public Janela() {
         initComponents();
     }
@@ -454,7 +454,7 @@ public class Janela extends javax.swing.JFrame {
                 BufferedReader reader = new BufferedReader(fileReader);
                 String line = reader.readLine();
 
-//                jTextField7.setText(Double.toString(Moda.moda(this)));
+              
                 int colunas;
                 int select_col;
                 if (line != null) {
@@ -462,9 +462,12 @@ public class Janela extends javax.swing.JFrame {
                     colunas = tokenizer.countTokens();
                     String[] cabecalho = new String[colunas];
                     select_col = get_col(colunas, tokenizer, cabecalho); //chama get_coluna -> seleciona a coluna 
-                    //digitada armazena em select_col
+                                                                         //digitada armazena em select_col
                     get_dados(select_col);
+                    jTextField6.setText(Double.toString(Media.media()));
+                    jTextField7.setText(Double.toString(Moda.moda()));
                 }
+                
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -472,21 +475,18 @@ public class Janela extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    Moda moda_chama;
+    
 
     //cria grafico
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        for (int i = 0; i < (moda_chama.v).size(); i++) {
-            System.out.println((moda_chama.v).get(i));
-        }
+       
+        
 
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField8ActionPerformed
-
-
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
 

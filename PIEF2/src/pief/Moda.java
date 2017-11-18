@@ -8,18 +8,18 @@ public class Moda {
     static Janela janela;
     static List<Double> v;
 
-    public static int count_row() {
-        return janela.getTableModel().getRowCount();
-    }
+    
 
-    public static List moda() {
+    public static Double moda() {
 
 
-        int contador = 1, contadorMax = 0;
+        int contador = 1; 
+        double contadorMax = 0;
         double aux;
 
         v = new ArrayList<>();
         v = Janela.DadosList;
+        
         //ordenar o vetor
         for (int i = 0; i < v.size(); i++) {
             for (int j = 0; j < v.size(); j++) {
@@ -46,8 +46,7 @@ public class Moda {
             }
         }
 
-        return v;
-
+        return contadorMax;
     }
 
     public Janela getJanela() {

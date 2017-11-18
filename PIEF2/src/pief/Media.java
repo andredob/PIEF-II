@@ -1,25 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package pief;
 
 import java.util.ArrayList;
 import static pief.Moda.v;
 
-/**
- *
- * @author Isabella
- */
+
 public class Media {
     
-     static Janela janela;
+     //static Janela janela;
     
     
     public static double media(){
         v = new ArrayList<>();
-        v = Janela.get_dados(get_col());
+        v = Janela.DadosList;
         
         
         double media, soma = 0;
@@ -29,6 +22,7 @@ public class Media {
         }
         
         media = soma / v.size();
+        
         return media;
     }
     
