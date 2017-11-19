@@ -8,18 +8,15 @@ public class Moda {
     static Janela janela;
     static List<Double> v;
 
-    
+    public static double moda() {
 
-    public static Double moda() {
-
-
-        int contador = 1; 
-        double contadorMax = 0;
+        int contador = 1;
+        int contadorMax = 0;
         double aux;
 
         v = new ArrayList<>();
         v = Janela.DadosList;
-        
+
         //ordenar o vetor
         for (int i = 0; i < v.size(); i++) {
             for (int j = 0; j < v.size(); j++) {
@@ -30,31 +27,26 @@ public class Moda {
                 }
             }
         }
+        double valormoda = 0;
+        for (int i = 0; i < v.size() - 1; i++) {
 
-        for (int i = 0; i < v.size(); i++) {
             if (v.get(i) == v.get(i + 1)) {//se o atual for igual ao proximo, incrementa contador
                 contador++;
-            } else//se nao for faz o teste para ver o maximo
-            if (contadorMax < contador) {  //se o contador atual for maior que o contadorMax
-                contadorMax = contador;    //o valor de contador é atribuido à contadorMax
-                contador = 1;
-            } else if (contadorMax == contador) {
+                if (contadorMax < contador) {  //se o contador atual for maior que o contadorMax
+                    contadorMax = contador;           //o valor de contador é atribuido à contadorMax
+                    contador = 1;
+                    valormoda = v.get(i);
+
+                } else if (contadorMax == contador) {
 //                System.out.println("possui mais de uma moda"); (revisar)
 
-            } else if (v.get(i) < v.get(i + 1)) {
-                contador = 1;
+                } else if (v.get(i) < v.get(i + 1)) {
+                    contador = 1;
+                }
             }
         }
+        double valor = valormoda;
+        return valor;
 
-        return contadorMax;
     }
-
-    public Janela getJanela() {
-        return janela;
-    }
-
-    public List<Double> getV() {
-        return v;
-    }
-
 }

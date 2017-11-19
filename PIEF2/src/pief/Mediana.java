@@ -1,29 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package pief;
 
-/**
- *
- * @author Isabella
- */
+
 public class Mediana {
 
-    Janela janela;
-
-    public int count_row() {
-        return janela.getTableModel().getRowCount();
+    static Janela janela;
+    
+    public static int linhas(){
+       return janela.getjTable2().getRowCount();
     }
-
-    public Mediana(Janela janela) {
-        this.janela = janela;
-        int[] v = new int[count_row()];
+    
+    
+    public static double mediana() {
+        
+        
+        int[] v = new int[linhas()];
         int aux;
         int indice_mediana;
         int indice_mediana2;
-        double mediana;
+        double mediana = 0;
         //ordenar o vetor
         for (int i = 0; i < v.length; i++) {
             for (int j = 0; j < v.length; j++) {
@@ -35,14 +30,14 @@ public class Mediana {
             }
         }
         
-        if(v.length % 2 == 0){
+        if(v.length % 2 != 0){
             indice_mediana = v.length / 2;
-            mediana = v[indice_mediana];
+            mediana = v[indice_mediana + 1];
         } else {
             indice_mediana = v.length / 2;
             indice_mediana2 = indice_mediana + 1;
             mediana = (v[indice_mediana] + v[indice_mediana2]) / 2;
         }
-        
+        return mediana;
     }
 }

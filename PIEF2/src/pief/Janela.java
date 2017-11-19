@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 // @author 201610586
@@ -17,7 +18,6 @@ public class Janela extends javax.swing.JFrame {
     File file;
     DefaultTableModel tableModel;
     public static List<Double> DadosList;
-    
     public Janela() {
         initComponents();
     }
@@ -173,29 +173,14 @@ public class Janela extends javax.swing.JFrame {
         jLabel7.setText("Média:");
 
         jTextField6.setEditable(false);
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
-            }
-        });
 
         jLabel8.setText("Moda:");
 
         jTextField7.setEditable(false);
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
-            }
-        });
 
         jLabel9.setText("Mediana:");
 
         jTextField8.setEditable(false);
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
-            }
-        });
 
         jButton4.setText("Procurar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -421,6 +406,7 @@ public class Janela extends javax.swing.JFrame {
                     }
                     tableModel = new DefaultTableModel(cabecalho, 0);
                     jTable2.setModel(tableModel);
+                    
                 }
                 line = reader.readLine();
                 while (line != null) {
@@ -440,11 +426,13 @@ public class Janela extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton5ActionPerformed
-
-
-    //mostra os resultados 
+    
+    public JTable getjTable2() {
+        return jTable2;
+    }
+//mostra os resultados 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-//                jTextField6.setText(Double.toString(Media.media(this)));
+
         try {
             if (file == null) {
                 throw new Exception("Nenhum arquivo escolhido");
@@ -454,7 +442,6 @@ public class Janela extends javax.swing.JFrame {
                 BufferedReader reader = new BufferedReader(fileReader);
                 String line = reader.readLine();
 
-              
                 int colunas;
                 int select_col;
                 if (line != null) {
@@ -462,12 +449,12 @@ public class Janela extends javax.swing.JFrame {
                     colunas = tokenizer.countTokens();
                     String[] cabecalho = new String[colunas];
                     select_col = get_col(colunas, tokenizer, cabecalho); //chama get_coluna -> seleciona a coluna 
-                                                                         //digitada armazena em select_col
+                    //digitada armazena em select_col
                     get_dados(select_col);
                     jTextField6.setText(Double.toString(Media.media()));
-                    jTextField7.setText(Double.toString(Moda.moda()));
+                    //jTextField7.setText(Double.toString(Moda.moda()));
+                    jTextField8.setText(Double.toString(Mediana.mediana()));
                 }
-                
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -475,31 +462,13 @@ public class Janela extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    
-
     //cria grafico
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-       
-        
+
 
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
-
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
-
-        
-    }//GEN-LAST:event_jTextField6ActionPerformed
-
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
-
-    public DefaultTableModel getTableModel() {
-        return tableModel;
-    }
+    
 
     ///////////metodos
     int get_col(int coluna, StringTokenizer tokenizer, String[] cabecalho) { //seleciona coluna
