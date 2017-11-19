@@ -1,42 +1,44 @@
 
 package pief;
 
+import java.util.ArrayList;
+import java.util.List;
+import static pief.Moda.v;
+
 
 public class Mediana {
 
     static Janela janela;
-    
-    public static int linhas(){
-       return janela.getjTable2().getRowCount();
-    }
+    static List<Double> v;
     
     
     public static double mediana() {
         
+        //v = new ArrayList<>();
+        v = Janela.DadosList;
         
-        int[] v = new int[linhas()];
-        int aux;
+        double aux;
         int indice_mediana;
         int indice_mediana2;
         double mediana = 0;
         //ordenar o vetor
-        for (int i = 0; i < v.length; i++) {
-            for (int j = 0; j < v.length; j++) {
-                if (v[i] > v[j]) {
-                    aux = v[j];
-                    v[j] = v[i];
-                    v[i] = aux;
+        for (int i = 0; i < v.size(); i++) {
+            for (int j = 0; j < v.size(); j++) {
+                if (v.get(i) > v.get(j)) {
+                    aux = v.get(j);
+                    v.set(j, v.get(i));
+                    v.set(i, aux);
                 }
             }
         }
         
-        if(v.length % 2 != 0){
-            indice_mediana = v.length / 2;
-            mediana = v[indice_mediana + 1];
+        if(v.size() % 2 != 0){
+            indice_mediana = v.size() / 2;
+            mediana = v.get(indice_mediana + 1);
         } else {
-            indice_mediana = v.length / 2;
+            indice_mediana = v.size() / 2;
             indice_mediana2 = indice_mediana + 1;
-            mediana = (v[indice_mediana] + v[indice_mediana2]) / 2;
+            mediana = (v.get(indice_mediana) + v.get(indice_mediana2)) / 2;
         }
         return mediana;
     }

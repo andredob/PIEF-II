@@ -452,7 +452,7 @@ public class Janela extends javax.swing.JFrame {
                     //digitada armazena em select_col
                     get_dados(select_col);
                     jTextField6.setText(Double.toString(Media.media()));
-                    //jTextField7.setText(Double.toString(Moda.moda()));
+                    jTextField7.setText(Double.toString(Moda.moda()));
                     jTextField8.setText(Double.toString(Mediana.mediana()));
                 }
             }

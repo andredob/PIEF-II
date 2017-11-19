@@ -14,7 +14,7 @@ public class Moda {
         int contadorMax = 0;
         double aux;
 
-        v = new ArrayList<>();
+        //v = new ArrayList<>();
         v = Janela.DadosList;
 
         //ordenar o vetor
