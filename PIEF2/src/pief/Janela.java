@@ -4,6 +4,8 @@ import static java.awt.image.ImageObserver.WIDTH;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -14,7 +16,9 @@ import javax.swing.table.DefaultTableModel;
 
 // @author 201610586
 public class Janela extends javax.swing.JFrame {
-
+    boolean qtd = false; //se a tabela tem a coluna quantidade
+    int qtdcol;          //qual o indice da coluda quantidade 
+    int qtddados;        //quantos dados tem
     File file;
     DefaultTableModel tableModel;
     public static List<Double> DadosList;
@@ -115,6 +119,11 @@ public class Janela extends javax.swing.JFrame {
         }
 
         jButton3.setText("Salvar tabela");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -122,27 +131,30 @@ public class Janela extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addGap(20, 20, 20)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButton2))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addGap(20, 20, 20)
+                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jButton2))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(187, 187, 187)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 77, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,6 +225,7 @@ public class Janela extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jTable2.setColumnSelectionAllowed(true);
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTable2);
         jTable2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -222,6 +235,7 @@ public class Janela extends javax.swing.JFrame {
             jTable2.getColumnModel().getColumn(2).setResizable(false);
         }
 
+        jTextField10.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField10.setText(";");
 
         jLabel11.setText("Digite o tipo de dado para mostrar os resultados:");
@@ -354,6 +368,8 @@ public class Janela extends javax.swing.JFrame {
 
             String linha[] = {dado, qtd};
             ((DefaultTableModel) jTable1.getModel()).addRow(linha);
+            ((DefaultTableModel) jTable2.getModel()).addRow(linha);
+            
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "digite numeros validos", "mensagem de erro", WIDTH);
@@ -434,8 +450,8 @@ public class Janela extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
         try {
-            if (file == null) {
-                throw new Exception("Nenhum arquivo escolhido");
+            if (jTextField11.equals(null)) {
+                throw new Exception("Nenhuma coluna escolhida");
             } else {
                 StringTokenizer tokenizer;
                 FileReader fileReader = new FileReader(file);
@@ -467,11 +483,39 @@ public class Janela extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jButton7ActionPerformed
+    
+    //salva tabela
+    public static final String DELIMITADOR = ";";
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       try {
+            FileWriter fw = new FileWriter("c:\\TEMP\\teste.CSV");
+            StringBuilder builder = new StringBuilder();
+           
+            builder.append("Dados");
+            builder.append(DELIMITADOR);
+            builder.append("Quântidade");
+            builder.append("\n");
+            for (int i = 0; i < jTable1.getRowCount(); i++) {
+                builder.append(jTable1.getValueAt(i, 0));
+                builder.append(DELIMITADOR);
+                builder.append(jTable1.getValueAt(i, 1));
+                builder.append("\n");
+            }
+            fw.write(builder.toString());
+            fw.flush();
+            fw.close();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }  
+       
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     
 
     ///////////metodos
-    int get_col(int coluna, StringTokenizer tokenizer, String[] cabecalho) { //seleciona coluna
+    
+    //seleciona coluna
+    int get_col(int coluna, StringTokenizer tokenizer, String[] cabecalho) { 
         int col;
         String texto = jTextField11.getText();
 
@@ -481,11 +525,15 @@ public class Janela extends javax.swing.JFrame {
                 col = i;
                 return col;
             }
+            if (cabecalho[i].equals("Quântidade") || cabecalho[i].equals("quântidade") || cabecalho[i].equals("qtd")){
+                qtd = true;
+                qtdcol = i;
+            }
         }
         return 0;
     }
-
-    public void get_dados(int select_col) { //armazena os dados em um vetor
+    //armazena os dados em um vetor
+    public void get_dados(int select_col) { 
         DadosList = new ArrayList<>();
         double[] dados = new double[tableModel.getRowCount()];
 
@@ -494,6 +542,12 @@ public class Janela extends javax.swing.JFrame {
             DadosList.add(dados[i]);
 
         }
+    }
+        
+    
+    public void quantidade_dados(){
+        
+        
     }
 
     public static void main(String args[]) {

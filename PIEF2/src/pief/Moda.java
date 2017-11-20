@@ -23,9 +23,12 @@ public class Moda {
                 if (v.get(i) > v.get(j)) {
                     aux = v.get(i);
                     v.set(i, v.get(j));
-                    v.set(i, aux);
+                    v.set(j, aux);
                 }
             }
+        }
+        for (int i = 0; i < v.size(); i++) {
+            System.out.println(v.get(i));
         }
         double valormoda = 0;
         for (int i = 0; i < v.size() - 1; i++) {
