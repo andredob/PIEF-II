@@ -5,17 +5,20 @@ import java.util.List;
 
 public class Moda {
 
-    static Janela janela;
+    //static Janela janela;
     static List<Double> v;
 
     public static double moda() {
 
+        
+        v = Janela.DadosList;
         int contador = 1;
+        int contmoda [] = new int [v.size()];
         int contadorMax = 0;
         double aux;
 
         //v = new ArrayList<>();
-        v = Janela.DadosList;
+        
 
         //ordenar o vetor
         for (int i = 0; i < v.size(); i++) {
