@@ -510,9 +510,8 @@ public class Janela extends javax.swing.JFrame {
 
                 int select_col;
                 if (line != null) {
-
                     select_col = get_col(); //chama get_coluna -> seleciona a coluna 
-                    //digitada armazena em select_col
+                                            //digitada armazena em select_col
                     get_dados(select_col);
                     jTextField6.setText(Double.toString(Media.media()));
                     jTextField7.setText(Double.toString(Moda.moda()));
@@ -569,7 +568,7 @@ public class Janela extends javax.swing.JFrame {
     public static final String DELIMITADOR = ";";
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
-            FileWriter fw = new FileWriter("c:\\TEMP\\teste.CSV");
+            FileWriter fw = new FileWriter("c:\\TEMP\\" + jTextField5.getText() + ".CSV");
             StringBuilder builder = new StringBuilder();
 
             builder.append("Dados");
